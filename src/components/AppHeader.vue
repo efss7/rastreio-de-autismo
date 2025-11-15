@@ -74,11 +74,17 @@
         Preencha os dados do paciente para iniciar a avaliação
       </p>
     </div>
+    
+    <!-- Indicador de Progresso -->
+    <div class="max-w-7xl mx-auto px-4 py-4">
+      <ProgressIndicator />
+    </div>
   </header>
 </template>
 
 <script setup>
 import { useTheme } from '../composables/useTheme'
+import ProgressIndicator from './ProgressIndicator.vue'
 
 const { isDark, toggleTheme } = useTheme()
 </script>
