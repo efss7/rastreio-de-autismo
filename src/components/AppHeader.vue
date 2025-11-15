@@ -1,6 +1,6 @@
 <template>
-  <header class="sticky top-0 z-50 backdrop-blur-lg border-b transition-colors duration-300"
-          :class="isDark ? 'bg-gray-800/90 border-gray-700' : 'bg-white/80 border-gray-200'">
+  <header class="border-b transition-colors duration-300"
+          :class="isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'">
     <div class="max-w-7xl mx-auto px-4 py-4">
       <div class="flex items-center justify-between">
         <!-- Logo/Spacer (esquerda) -->
@@ -68,9 +68,12 @@
         </div>
       </div>
       
-      <!-- Subtítulo -->
-      <p class="text-center text-sm md:text-base mt-2 transition-colors duration-300"
-         :class="isDark ? 'text-gray-400' : 'text-gray-600'">
+      <!-- Subtítulo - Apenas na tela de Dados Pessoais -->
+      <p 
+        v-if="currentRoute === 'DadosPessoais'"
+        class="text-center text-sm md:text-base mt-2 transition-colors duration-300"
+        :class="isDark ? 'text-gray-400' : 'text-gray-600'"
+      >
         Preencha os dados do paciente para iniciar a avaliação
       </p>
     </div>
@@ -83,10 +86,15 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { useTheme } from '../composables/useTheme'
 import ProgressIndicator from './ProgressIndicator.vue'
 
+const route = useRoute()
 const { isDark, toggleTheme } = useTheme()
+
+const currentRoute = computed(() => route.name)
 </script>
 
 <style scoped>
