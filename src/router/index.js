@@ -28,6 +28,18 @@ const routes = [
     }
   },
   {
+    path: '/follow-up',
+    name: 'FollowUp',
+    component: () => import('../components/FollowUpMCHAT.vue'),
+    meta: {
+      title: 'Follow-Up M-CHAT-R/F',
+      step: 2,
+      totalSteps: 3,
+      requiresData: true,
+      requiresTriagem: true // Requer triagem completa
+    }
+  },
+  {
     path: '/resultado',
     name: 'Resultado',
     component: () => import('../components/ResultadoAvaliacao.vue'),
@@ -36,7 +48,7 @@ const routes = [
       step: 3,
       totalSteps: 3,
       requiresData: true,
-      requiresAnswers: true // Requer respostas do questionário
+      requiresTriagem: true // Requer triagem completa
     }
   }
 ]
@@ -58,11 +70,11 @@ router.beforeEach((to, from, next) => {
     }
   }
 
-  // Verificar se a rota requer respostas do questionário
-  if (to.meta.requiresAnswers) {
-    const respostas = localStorage.getItem('respostasMCHAT')
-    if (!respostas) {
-      // Redirecionar para questionário se não existirem respostas
+  // Verificar se a rota requer triagem completa
+  if (to.meta.requiresTriagem) {
+    const resultadoTriagem = localStorage.getItem('resultadoTriagem')
+    if (!resultadoTriagem) {
+      // Redirecionar para questionário se não houver triagem
       next({ name: 'Questionario' })
       return
     }
