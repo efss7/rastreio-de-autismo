@@ -357,9 +357,27 @@ const handleSubmit = async () => {
   }
 }
 
+// Carregar dados salvos do localStorage
+const carregarDadosSalvos = () => {
+  const dadosSalvos = localStorage.getItem('dadosPessoais')
+  if (dadosSalvos) {
+    try {
+      const dados = JSON.parse(dadosSalvos)
+      formData.value = { ...dados }
+    } catch (error) {
+      console.error('Erro ao carregar dados salvos:', error)
+    }
+  }
+}
+
 // Definir data da avaliação como hoje ao montar o componente
 onMounted(() => {
-  formData.value.dataAvaliacao = hoje.value
+  carregarDadosSalvos()
+  
+  // Se não houver data de avaliação salva, usar hoje
+  if (!formData.value.dataAvaliacao) {
+    formData.value.dataAvaliacao = hoje.value
+  }
 })
 </script>
 
