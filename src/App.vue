@@ -4,7 +4,11 @@
     <AppHeader />
     
     <main>
-      <DadosPessoaisForm />
+      <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </main>
   </div>
 </template>
@@ -12,9 +16,21 @@
 <script setup>
 import { useTheme } from './composables/useTheme'
 import AppHeader from './components/AppHeader.vue'
-import DadosPessoaisForm from './components/DadosPessoaisForm.vue'
 
 const { isDark } = useTheme()
 </script>
+
+<style>
+/* Transição entre rotas */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
 
 

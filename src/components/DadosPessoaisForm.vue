@@ -169,6 +169,9 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 // Dados do formulário
 const formData = ref({
@@ -338,15 +341,14 @@ const handleSubmit = async () => {
   isSubmitting.value = true
   
   try {
-    // Simulação de envio (substituir pela lógica real)
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    // Salvar dados no localStorage
+    localStorage.setItem('dadosPessoais', JSON.stringify(formData.value))
     
-    console.log('Dados do formulário:', formData.value)
+    // Simulação de processamento
+    await new Promise(resolve => setTimeout(resolve, 800))
     
-    // Emitir evento ou navegar para próxima etapa
-    // emit('dadosColetados', formData.value)
-    
-    alert('Dados salvos com sucesso! Próxima etapa: Questionário de triagem.')
+    // Navegar para o questionário
+    router.push({ name: 'Questionario' })
   } catch (error) {
     console.error('Erro ao salvar dados:', error)
     alert('Erro ao salvar dados. Tente novamente.')
