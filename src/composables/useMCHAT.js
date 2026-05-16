@@ -28,9 +28,6 @@ export function useMCHAT() {
   // Perguntas que têm pontuação INVERTIDA (SIM = risco)
   const perguntasInvertidas = [2, 5, 12]
   
-  // Perguntas consideradas CRÍTICAS para TEA
-  const perguntasCriticas = [2, 5, 7, 9, 13, 14, 15]
-  
   // Exemplos para o Follow-Up de cada item
   const exemplosFollowUp = {
     1: {
@@ -346,7 +343,6 @@ export function useMCHAT() {
   const calcularPontuacao = (respostas) => {
     let pontos = 0
     const itensFalhados = []
-    const itensCriticosFalhados = []
     
     respostas.forEach((resposta, index) => {
       const numeroPergunta = index + 1
@@ -367,65 +363,56 @@ export function useMCHAT() {
       if (falhou) {
         pontos++
         itensFalhados.push(numeroPergunta)
-        
-        // Verifica se é pergunta crítica
-        if (perguntasCriticas.includes(numeroPergunta)) {
-          itensCriticosFalhados.push(numeroPergunta)
-        }
       }
     })
     
     return {
       pontos,
-      itensFalhados,
-      itensCriticosFalhados
+      itensFalhados
     }
   }
   
-  // Classificar risco
-  const classificarRisco = (pontos, itensCriticosFalhados) => {
-    // Se falhou em 2+ itens críticos, é alto risco independente da pontuação
-    if (itensCriticosFalhados >= 2) {
-      return 'ALTO'
-    }
-    
-    if (pontos >= 0 && pontos <= 2) {
+  // Classificar risco — todas as perguntas têm peso igual
+  const classificarRisco = (pontos) => {
+    if (pontos <= 2) {
       return 'BAIXO'
-    } else if (pontos >= 3 && pontos <= 7) {
+    } else if (pontos <= 7) {
       return 'MEDIO'
     } else {
       return 'ALTO'
     }
   }
   
+  // Classificar risco após Follow-Up — regra oficial M-CHAT-R/F:
+  // ≥ 2 itens ainda com risco = triagem positiva → encaminhar (ALTO)
+  // 0 ou 1 item com risco    = triagem negativa → baixo risco  (BAIXO)
+  const classificarRiscoFollowUp = (pontos) => {
+    return pontos >= 2 ? 'ALTO' : 'BAIXO'
+  }
+
   // Recalcular após Follow-Up
   const recalcularAposFollowUp = (resultadosFollowUp) => {
     let pontos = 0
-    let itensCriticosFalhados = 0
     
-    Object.entries(resultadosFollowUp).forEach(([item, resultado]) => {
+    Object.values(resultadosFollowUp).forEach((resultado) => {
       if (resultado === 'falhou') {
         pontos++
-        if (perguntasCriticas.includes(parseInt(item))) {
-          itensCriticosFalhados++
-        }
       }
     })
     
     return {
       pontos,
-      itensCriticosFalhados,
-      risco: classificarRisco(pontos, itensCriticosFalhados)
+      risco: classificarRiscoFollowUp(pontos)
     }
   }
   
   return {
     perguntasMCHAT,
     perguntasInvertidas,
-    perguntasCriticas,
     exemplosFollowUp,
     calcularPontuacao,
     classificarRisco,
+    classificarRiscoFollowUp,
     recalcularAposFollowUp
   }
 }

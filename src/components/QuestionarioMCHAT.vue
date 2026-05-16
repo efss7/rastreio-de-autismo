@@ -209,7 +209,6 @@ const handleBeforeUnload = (e) => {
   const temRespostas = respostas.value.some(r => r !== null)
   
   if (temRespostas) {
-    // Limpar respostas do questionário ao recarregar
     localStorage.removeItem('respostasMCHAT')
     
     e.preventDefault()
@@ -265,7 +264,6 @@ const todasRespondidas = computed(() => {
 const responder = (resposta) => {
   respostas.value[perguntaAtual.value] = resposta
   
-  // Avançar automaticamente para a próxima pergunta após responder
   setTimeout(() => {
     if (perguntaAtual.value < totalPerguntas - 1) {
       proximaPergunta()
@@ -291,7 +289,6 @@ const perguntaAnterior = () => {
 
 const voltarParaDados = () => {
   if (confirm('Tem certeza que deseja voltar? Você precisará responder o questionário novamente.')) {
-    // Limpar respostas ao voltar
     respostas.value = Array(20).fill(null)
     perguntaAtual.value = 0
     localStorage.removeItem('respostasMCHAT')
@@ -312,33 +309,25 @@ const finalizar = async () => {
   isSubmitting.value = true
 
   try {
-    // Salvar respostas
     salvarProgresso()
     
-    // Calcular pontuação
     const resultado = calcularPontuacao(respostas.value)
-    const risco = classificarRisco(resultado.pontos, resultado.itensCriticosFalhados.length)
+    const risco = classificarRisco(resultado.pontos)
     
-    // Salvar resultado da triagem inicial
     const resultadoTriagem = {
       respostas: respostas.value,
       pontos: resultado.pontos,
       itensFalhados: resultado.itensFalhados,
-      itensCriticosFalhados: resultado.itensCriticosFalhados,
       risco: risco
     }
     
     localStorage.setItem('resultadoTriagem', JSON.stringify(resultadoTriagem))
     
-    // Simulação de processamento
     await new Promise(resolve => setTimeout(resolve, 1000))
     
-    // Decidir fluxo baseado no risco
     if (risco === 'MEDIO') {
-      // Risco médio: vai para Follow-Up
       router.push({ name: 'FollowUp' })
     } else {
-      // Baixo ou Alto risco: vai direto para resultado
       router.push({ name: 'Resultado' })
     }
   } catch (error) {
@@ -349,40 +338,28 @@ const finalizar = async () => {
   }
 }
 
-// Carregar respostas salvas (se existirem)
 const carregarProgresso = () => {
   const salvo = localStorage.getItem('respostasMCHAT')
   if (salvo) {
     try {
-      const respostasSalvas = JSON.parse(salvo)
-      respostas.value = respostasSalvas
+      respostas.value = JSON.parse(salvo)
     } catch (error) {
       console.error('Erro ao carregar progresso:', error)
     }
   }
 }
-
-// Carregar ao montar
-carregarProgresso()
 </script>
 
 <style scoped>
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-slide-up {
   animation: slideUp 0.6s ease-out;
 }
 
-/* Animação suave ao mudar pergunta */
 button:active {
   transform: scale(0.98);
 }

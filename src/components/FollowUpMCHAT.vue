@@ -275,12 +275,9 @@ const todosAvaliados = computed(() => {
   return itensFalhados.value.every(item => resultados.value[item])
 })
 
-// Avisar antes de sair da página e limpar ao recarregar
 const handleBeforeUnload = (e) => {
   if (Object.keys(resultados.value).length > 0) {
-    // Limpar respostas do follow-up ao recarregar
     localStorage.removeItem('resultadoFollowUp')
-    
     e.preventDefault()
     e.returnValue = 'Você tem respostas da entrevista não salvas. Se sair agora, perderá o progresso do Follow-Up. Deseja realmente sair?'
     return e.returnValue
@@ -291,7 +288,6 @@ const handleBeforeUnload = (e) => {
 const marcarResultado = (resultado) => {
   resultados.value[itensFalhados.value[itemAtual.value]] = resultado
   
-  // Avançar automaticamente
   setTimeout(() => {
     if (itemAtual.value < itensFalhados.value.length - 1) {
       proximoItem()
@@ -320,14 +316,11 @@ const finalizar = async () => {
   isSubmitting.value = true
 
   try {
-    // Recalcular pontuação após Follow-Up
     const resultadoFinal = recalcularAposFollowUp(resultados.value)
     
-    // Salvar resultado do Follow-Up
     const followUpData = {
       resultados: resultados.value,
       pontuacaoFinal: resultadoFinal.pontos,
-      itensCriticosFalhados: resultadoFinal.itensCriticosFalhados,
       riscoFinal: resultadoFinal.risco
     }
     
@@ -335,7 +328,6 @@ const finalizar = async () => {
     
     await new Promise(resolve => setTimeout(resolve, 1000))
     
-    // Navegar para resultado
     router.push({ name: 'Resultado' })
   } catch (error) {
     console.error('Erro ao finalizar:', error)
@@ -345,12 +337,10 @@ const finalizar = async () => {
   }
 }
 
-// Carregar dados da triagem inicial
 onMounted(() => {
   const triagemData = localStorage.getItem('resultadoTriagem')
   
   if (!triagemData) {
-    // Se não houver dados, redirecionar
     router.push({ name: 'DadosPessoais' })
     return
   }
@@ -359,10 +349,8 @@ onMounted(() => {
   itensFalhados.value = triagem.itensFalhados
   pontuacaoInicial.value = triagem.pontos
   
-  // Adicionar listener de aviso ao sair
   window.addEventListener('beforeunload', handleBeforeUnload)
   
-  // Carregar resultados salvos se existirem
   const followUpSalvo = localStorage.getItem('resultadoFollowUp')
   if (followUpSalvo) {
     const follow = JSON.parse(followUpSalvo)
@@ -377,32 +365,17 @@ onUnmounted(() => {
 
 <style scoped>
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.animate-slide-up {
-  animation: slideUp 0.6s ease-out;
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out;
-}
+.animate-slide-up { animation: slideUp 0.6s ease-out; }
+.animate-fade-in  { animation: fadeIn 0.4s ease-out; }
 
 button:disabled {
   opacity: 0.5;
