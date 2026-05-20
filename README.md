@@ -1,6 +1,6 @@
-# 🧩 M-CHAT-R/F - Sistema de Triagem de Autismo
+# 🧩 M-CHAT-R/F - Sistema de Rastreio de Autismo
 
-Sistema web para aplicação do **M-CHAT-R/F** (Modified Checklist for Autism in Toddlers, Revised with Follow-Up), ferramenta validada para triagem precoce do Transtorno do Espectro Autista (TEA) em crianças de 16 a 30 meses.
+Sistema web para aplicação do **M-CHAT-R/F** (Modified Checklist for Autism in Toddlers, Revised with Follow-Up), ferramenta validada para rastreio precoce do Transtorno do Espectro Autista (TEA) em crianças de 16 a 30 meses.
 
 [![Vue 3](https://img.shields.io/badge/Vue-3.5-4FC08D?logo=vue.js)](https://vuejs.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.3-646CFF?logo=vite)](https://vitejs.dev/)
@@ -9,9 +9,9 @@ Sistema web para aplicação do **M-CHAT-R/F** (Modified Checklist for Autism in
 
 ## 📋 Sobre o Projeto
 
-O M-CHAT-R/F é um instrumento de triagem baseado em evidências científicas, recomendado pela Academia Americana de Pediatria para identificação precoce de sinais de autismo. Este sistema digitaliza o processo completo de:
+O M-CHAT-R/F é um instrumento de rastreio baseado em evidências científicas, recomendado pela Academia Americana de Pediatria para identificação precoce de sinais de autismo. Este sistema digitaliza o processo completo de:
 
-- ✅ **Triagem Inicial (M-CHAT-R)**: 20 perguntas sobre comportamento da criança
+- ✅ **Rastreio Inicial (M-CHAT-R)**: 20 perguntas sobre comportamento da criança
 - ✅ **Follow-Up (M-CHAT-R/F)**: Entrevista estruturada para casos de risco médio
 - ✅ **Classificação de Risco**: Baixo, Médio ou Alto
 - ✅ **Relatório em PDF**: Documento profissional com resultados e recomendações
@@ -112,8 +112,8 @@ npm ou yarn
 
 1. **Clone o repositório**
 ```bash
-git clone https://github.com/efss7/triagem-de-autismo.git
-cd triagem-de-autismo
+git clone https://github.com/efss7/rastreio-de-autismo.git
+cd rastreio-de-autismo
 ```
 
 2. **Instale as dependências**
@@ -150,7 +150,7 @@ npm run preview
 ## 📁 Estrutura do Projeto
 
 ```
-triagem-de-autismo/
+rastreio-de-autismo/
 ├── public/                 # Arquivos estáticos
 ├── src/
 │   ├── assets/            # CSS e recursos
@@ -283,7 +283,7 @@ Este projeto está sob a licença **MIT**. Veja o arquivo [LICENSE](LICENSE) par
 
 ## ⚠️ Disclaimer
 
-Este sistema é uma **ferramenta de triagem**, não um diagnóstico. Resultados devem ser interpretados por profissionais qualificados. Sempre consulte um especialista em desenvolvimento infantil ou autismo para avaliação completa.
+Este sistema é uma **ferramenta de rastreio**, não um diagnóstico. Resultados devem ser interpretados por profissionais qualificados. Sempre consulte um especialista em desenvolvimento infantil ou autismo para avaliação completa.
 
 ---
 
@@ -291,7 +291,7 @@ Este sistema é uma **ferramenta de triagem**, não um diagnóstico. Resultados 
 
 **Eric Felipe**
 - GitHub: [@efss7](https://github.com/efss7)
-- Projeto: [triagem-de-autismo](https://github.com/efss7/triagem-de-autismo)
+- Projeto: [rastreio-de-autismo](https://github.com/efss7/rastreio-de-autismo)
 
 ---
 
@@ -306,7 +306,7 @@ Este sistema é uma **ferramenta de triagem**, não um diagnóstico. Resultados 
 ## 📞 Suporte
 
 Para dúvidas, sugestões ou problemas:
-- Abra uma [Issue](https://github.com/efss7/triagem-de-autismo/issues)
+- Abra uma [Issue](https://github.com/efss7/rastreio-de-autismo/issues)
 - Entre em contato via GitHub
 
 ---

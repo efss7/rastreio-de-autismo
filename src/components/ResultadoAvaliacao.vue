@@ -90,7 +90,7 @@
             <!-- Pontuação Inicial -->
             <div class="p-6 bg-gradient-to-br from-primary-50 to-primary-100 rounded-xl border-2 border-primary-200">
               <div class="text-center">
-                <p class="text-sm font-medium text-primary-700 mb-2">Triagem Inicial</p>
+                <p class="text-sm font-medium text-primary-700 mb-2">Rastreio Inicial</p>
                 <p class="text-5xl font-bold text-primary-900 mb-1">{{ pontuacaoInicial }}</p>
                 <p class="text-sm text-primary-600">de 20 pontos</p>
               </div>
@@ -125,7 +125,7 @@
           <div class="mb-8 p-6 bg-gray-50 rounded-xl">
             <h3 class="text-lg font-bold text-gray-900 mb-4">Classificação de Risco</h3>
 
-            <!-- Barra da Triagem Inicial (3 faixas) -->
+            <!-- Barra da Rastreio Inicial (3 faixas) -->
             <div v-if="!fezFollowUp" class="space-y-4">
               <div class="relative h-16 bg-gradient-to-r from-success-200 via-warning-200 to-danger-200 rounded-full overflow-hidden">
                 <div 
@@ -275,7 +275,7 @@
           <div class="text-sm text-gray-600">
             <p class="font-medium mb-1">Informação Importante:</p>
             <p>
-              O M-CHAT-R/F é um instrumento de triagem, não um diagnóstico. 
+              O M-CHAT-R/F é um instrumento de rastreio, não um diagnóstico. 
               Um resultado de risco não confirma autismo, mas indica necessidade de avaliação mais aprofundada. 
               Consulte sempre um profissional especializado.
             </p>
@@ -332,7 +332,7 @@ const idadeCrianca = computed(() => {
 const tituloRisco = computed(() => {
   if (riscoFinal.value === 'BAIXO') {
     return fezFollowUp.value
-      ? 'Triagem Negativa após Follow-Up'
+      ? 'Rastreio Negativo após Follow-Up'
       : 'Baixo Risco para TEA'
   }
   if (riscoFinal.value === 'MEDIO') return 'Risco Médio para TEA'
@@ -344,7 +344,7 @@ const descricaoRisco = computed(() => {
   if (riscoFinal.value === 'BAIXO') {
     return fezFollowUp.value
       ? 'Após a Consulta de Seguimento, menos de 2 itens mantiveram indicação de risco'
-      : 'A criança apresentou desenvolvimento típico na triagem'
+      : 'A criança apresentou desenvolvimento típico no rastreio'
   }
   if (riscoFinal.value === 'MEDIO') return 'Recomenda-se monitoramento e reavaliação futura'
   if (riscoFinal.value === 'ALTO') {
@@ -356,10 +356,10 @@ const descricaoRisco = computed(() => {
 })
 
 const recomendacoes = computed(() => {
-  // BAIXO após Follow-Up: triagem negativa — conduta diferente do baixo risco direto
+  // BAIXO após Follow-Up: rastreio negativo — conduta diferente do baixo risco direto
   if (riscoFinal.value === 'BAIXO' && fezFollowUp.value) {
     return [
-      'A Consulta de Seguimento esclareceu os itens de risco iniciais — triagem negativa confirmada.',
+      'A Consulta de Seguimento esclareceu os itens de risco iniciais — rastreio negativo confirmado.',
       'Continuar o monitoramento do desenvolvimento infantil nas consultas de rotina.',
       'Reaplicar o M-CHAT-R em consultas futuras conforme protocolo pediátrico.',
       'Manter atenção a marcos do desenvolvimento e procurar orientação se surgirem novas preocupações.'
@@ -377,7 +377,7 @@ const recomendacoes = computed(() => {
     case 'MEDIO':
       return [
         'Agendar reavaliação em 3-6 meses para monitoramento do desenvolvimento.',
-        'Observar atentamente os comportamentos que indicaram risco na triagem.',
+        'Observar atentamente os comportamentos que indicaram risco no rastreio.',
         'Considerar avaliação por profissionais especializados (psicólogo, fonoaudiólogo) se preocupações persistirem.',
         'Manter registro de comportamentos e marcos do desenvolvimento.',
         'Estimular interação social, comunicação e imitação através de atividades lúdicas.'
@@ -497,11 +497,11 @@ const baixarPDF = async () => {
     doc.line(margin, yPos, pageWidth - margin, yPos)
     yPos += 10
 
-    // Resultado da triagem
+    // Resultado da rastreio
     doc.setFontSize(11)
     doc.setFont('helvetica', 'bold')
     doc.setTextColor(azulSobrio.r, azulSobrio.g, azulSobrio.b)
-    doc.text('Resultado da Triagem Inicial (M-CHAT-R)', margin, yPos)
+    doc.text('Resultado da Rastreio Inicial (M-CHAT-R)', margin, yPos)
     yPos += 8
 
     doc.setTextColor(cinzaEscuro.r, cinzaEscuro.g, cinzaEscuro.b)
@@ -526,11 +526,11 @@ const baixarPDF = async () => {
     
     let recomendacaoTexto = ''
     if (riscoFinal.value === 'BAIXO' && !fezFollowUp.value) {
-      recomendacaoTexto = 'Triagem negativa. Não é necessário aplicar a Consulta de Seguimento. Continue o monitoramento do desenvolvimento infantil nas consultas de rotina.'
+      recomendacaoTexto = 'Rastreio negativo. Não é necessário aplicar a Consulta de Seguimento. Continue o monitoramento do desenvolvimento infantil nas consultas de rotina.'
     } else if (riscoFinal.value === 'MEDIO') {
       recomendacaoTexto = 'Risco moderado identificado. Foi aplicada a Consulta de Seguimento (Follow-Up) — veja resultado abaixo.'
     } else if (riscoFinal.value === 'ALTO' && !fezFollowUp.value) {
-      recomendacaoTexto = 'Triagem positiva (alto risco). A Consulta de Seguimento não é necessária. Recomenda-se encaminhamento imediato para avaliação diagnóstica completa e início de intervenção precoce.'
+      recomendacaoTexto = 'Rastreio positivo (alto risco). A Consulta de Seguimento não é necessária. Recomenda-se encaminhamento imediato para avaliação diagnóstica completa e início de intervenção precoce.'
     }
     
     const recomendacaoLines = doc.splitTextToSize(recomendacaoTexto, pageWidth - 2 * margin)
@@ -568,15 +568,15 @@ const baixarPDF = async () => {
       doc.setFont('helvetica', 'bold')
       doc.text('Threshold de encaminhamento:', margin, yPos)
       doc.setFont('helvetica', 'normal')
-      doc.text('≥ 2 itens = triagem positiva (encaminhar)', margin + 60, yPos)
+      doc.text('≥ 2 itens = rastreio positivo (encaminhar)', margin + 60, yPos)
       yPos += 5.5
 
       doc.setFont('helvetica', 'bold')
       doc.text('Resultado Final:', margin, yPos)
       doc.setFont('helvetica', 'normal')
       const resultadoFinalTexto = riscoFinal.value === 'ALTO'
-        ? 'Triagem POSITIVA — encaminhar para avaliação diagnóstica'
-        : 'Triagem NEGATIVA — monitoramento de rotina'
+        ? 'Rastreio POSITIVO — encaminhar para avaliação diagnóstica'
+        : 'Rastreio NEGATIVO — monitoramento de rotina'
       doc.text(resultadoFinalTexto, margin + 36, yPos)
       yPos += 10
     }
@@ -589,7 +589,7 @@ const baixarPDF = async () => {
     doc.setFontSize(11)
     doc.setFont('helvetica', 'bold')
     doc.setTextColor(azulSobrio.r, azulSobrio.g, azulSobrio.b)
-    doc.text('Respostas da Triagem Inicial (M-CHAT-R)', margin, yPos)
+    doc.text('Respostas da Rastreio Inicial (M-CHAT-R)', margin, yPos)
     yPos += 8
 
     doc.setTextColor(cinzaEscuro.r, cinzaEscuro.g, cinzaEscuro.b)
@@ -653,7 +653,7 @@ const baixarPDF = async () => {
     yPos += 5
     doc.setFont('helvetica', 'normal')
     doc.setTextColor(cinzaEscuro.r, cinzaEscuro.g, cinzaEscuro.b)
-    const nota = 'O M-CHAT-R/F é um instrumento de triagem, não um diagnóstico. Um resultado de risco não confirma autismo, mas indica necessidade de avaliação mais aprofundada por profissionais especializados.'
+    const nota = 'O M-CHAT-R/F é um instrumento de rastreio, não um diagnóstico. Um resultado de risco não confirma autismo, mas indica necessidade de avaliação mais aprofundada por profissionais especializados.'
     const notaLines = doc.splitTextToSize(nota, pageWidth - 2 * margin - 6)
     doc.text(notaLines, margin + 3, yPos)
 
@@ -695,11 +695,11 @@ onMounted(() => {
     dadosPaciente.value = JSON.parse(dadosSalvos)
   }
   
-  const triagemSalva = localStorage.getItem('resultadoTriagem')
-  if (triagemSalva) {
-    const triagem = JSON.parse(triagemSalva)
-    pontuacaoInicial.value = triagem.pontos
-    itensFalhados.value = triagem.itensFalhados
+  const rastreioSalvo = localStorage.getItem('resultadoRastreio')
+  if (rastreioSalvo) {
+    const rastreio = JSON.parse(rastreioSalvo)
+    pontuacaoInicial.value = rastreio.pontos
+    itensFalhados.value = rastreio.itensFalhados
   }
   
   const followUpSalvo = localStorage.getItem('resultadoFollowUp')
@@ -709,13 +709,13 @@ onMounted(() => {
     pontuacaoFollowUp.value = followUp.pontuacaoFinal
     pontuacaoFinal.value = followUp.pontuacaoFinal
     riscoFinal.value = followUp.riscoFinal
-  } else if (triagemSalva) {
-    const triagem = JSON.parse(triagemSalva)
-    pontuacaoFinal.value = triagem.pontos
-    riscoFinal.value = triagem.risco
+  } else if (rastreioSalvo) {
+    const rastreio = JSON.parse(rastreioSalvo)
+    pontuacaoFinal.value = rastreio.pontos
+    riscoFinal.value = rastreio.risco
   }
   
-  if (!dadosSalvos || !triagemSalva) {
+  if (!dadosSalvos || !rastreioSalvo) {
     router.push({ name: 'DadosPessoais' })
   }
 })

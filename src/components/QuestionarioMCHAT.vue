@@ -314,14 +314,14 @@ const finalizar = async () => {
     const resultado = calcularPontuacao(respostas.value)
     const risco = classificarRisco(resultado.pontos)
     
-    const resultadoTriagem = {
+    const resultadoRastreio = {
       respostas: respostas.value,
       pontos: resultado.pontos,
       itensFalhados: resultado.itensFalhados,
       risco: risco
     }
     
-    localStorage.setItem('resultadoTriagem', JSON.stringify(resultadoTriagem))
+    localStorage.setItem('resultadoRastreio', JSON.stringify(resultadoRastreio))
     
     await new Promise(resolve => setTimeout(resolve, 1000))
     

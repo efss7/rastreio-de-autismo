@@ -384,8 +384,8 @@ export function useMCHAT() {
   }
   
   // Classificar risco após Follow-Up — regra oficial M-CHAT-R/F:
-  // ≥ 2 itens ainda com risco = triagem positiva → encaminhar (ALTO)
-  // 0 ou 1 item com risco    = triagem negativa → baixo risco  (BAIXO)
+  // ≥ 2 itens ainda com risco = rastreio positivo → encaminhar (ALTO)
+  // 0 ou 1 item com risco    = rastreio negativo → baixo risco  (BAIXO)
   const classificarRiscoFollowUp = (pontos) => {
     return pontos >= 2 ? 'ALTO' : 'BAIXO'
   }

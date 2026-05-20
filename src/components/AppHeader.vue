@@ -15,7 +15,7 @@
             </span>
             <span :class="isDark ? 'text-gray-300' : 'text-gray-700'"> - </span>
             <span :class="isDark ? 'text-gray-300' : 'text-gray-800'">
-              Triagem de Autismo
+              Rastreio de Autismo
             </span>
           </h1>
         </div>

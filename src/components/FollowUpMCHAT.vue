@@ -15,10 +15,10 @@
                 Consulta de Seguimento Detalhada (M-CHAT-R/F)
               </h2>
               <p class="text-warning-800 mb-3">
-                A triagem inicial indicou <strong>risco médio</strong> ({{ pontuacaoInicial }} pontos). 
+                A rastreio inicial indicou <strong>risco médio</strong> ({{ pontuacaoInicial }} pontos). 
               </p>
               <p class="text-warning-700 text-sm">
-                Os itens abaixo falharam na triagem. Conduza uma entrevista com o responsável para cada item, 
+                Os itens abaixo falharam na rastreio. Conduza uma entrevista com o responsável para cada item, 
                 usando os exemplos como guia. Marque <strong>PASSOU</strong> se após esclarecimentos o comportamento for típico, 
                 ou <strong>FALHOU</strong> se continuar indicando risco.
               </p>
@@ -338,16 +338,16 @@ const finalizar = async () => {
 }
 
 onMounted(() => {
-  const triagemData = localStorage.getItem('resultadoTriagem')
+  const rastreioData = localStorage.getItem('resultadoRastreio')
   
-  if (!triagemData) {
+  if (!rastreioData) {
     router.push({ name: 'DadosPessoais' })
     return
   }
   
-  const triagem = JSON.parse(triagemData)
-  itensFalhados.value = triagem.itensFalhados
-  pontuacaoInicial.value = triagem.pontos
+  const rastreio = JSON.parse(rastreioData)
+  itensFalhados.value = rastreio.itensFalhados
+  pontuacaoInicial.value = rastreio.pontos
   
   window.addEventListener('beforeunload', handleBeforeUnload)
   

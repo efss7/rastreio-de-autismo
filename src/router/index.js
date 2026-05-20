@@ -36,7 +36,7 @@ const routes = [
       step: 2,
       totalSteps: 3,
       requiresData: true,
-      requiresTriagem: true // Requer triagem completa
+      requiresRastreio: true // Requer rastreio completo
     }
   },
   {
@@ -48,7 +48,7 @@ const routes = [
       step: 3,
       totalSteps: 3,
       requiresData: true,
-      requiresTriagem: true // Requer triagem completa
+      requiresRastreio: true // Requer rastreio completo
     }
   }
 ]
@@ -70,11 +70,11 @@ router.beforeEach((to, from, next) => {
     }
   }
 
-  // Verificar se a rota requer triagem completa
-  if (to.meta.requiresTriagem) {
-    const resultadoTriagem = localStorage.getItem('resultadoTriagem')
-    if (!resultadoTriagem) {
-      // Redirecionar para questionário se não houver triagem
+  // Verificar se a rota requer rastreio completo
+  if (to.meta.requiresRastreio) {
+    const resultadoRastreio = localStorage.getItem('resultadoRastreio')
+    if (!resultadoRastreio) {
+      // Redirecionar para questionário se não houver rastreio
       next({ name: 'Questionario' })
       return
     }
