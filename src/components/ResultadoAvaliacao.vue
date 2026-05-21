@@ -611,17 +611,37 @@ const baixarPDF = async () => {
         doc.setFillColor(249, 250, 251)
         const perguntaText = `${numPergunta}. ${pergunta.texto}`
         const perguntaLines = doc.splitTextToSize(perguntaText, pageWidth - 2 * margin - 6)
-        doc.rect(margin - 2, yPos - 3, pageWidth - 2 * margin + 4, perguntaLines.length * 4 + 8, 'F')
+        const exemploLines = pergunta.exemplo
+          ? doc.splitTextToSize(`Exemplo: ${pergunta.exemplo}`, pageWidth - 2 * margin - 6)
+          : []
+        const totalLines = perguntaLines.length + exemploLines.length
+        doc.rect(margin - 2, yPos - 3, pageWidth - 2 * margin + 4, totalLines * 4 + 12, 'F')
       }
 
+      // Texto da pergunta
       doc.setFont('helvetica', 'bold')
+      doc.setFontSize(8.5)
+      doc.setTextColor(cinzaEscuro.r, cinzaEscuro.g, cinzaEscuro.b)
       const perguntaText = `${numPergunta}. ${pergunta.texto}`
       const perguntaLines = doc.splitTextToSize(perguntaText, pageWidth - 2 * margin - 6)
       doc.text(perguntaLines, margin, yPos)
-      
-      yPos += perguntaLines.length * 4 + 3
+      yPos += perguntaLines.length * 4 + 2
 
+      // Exemplo (se existir)
+      if (pergunta.exemplo) {
+        doc.setFont('helvetica', 'italic')
+        doc.setFontSize(7.5)
+        doc.setTextColor(azulSobrio.r, azulSobrio.g, azulSobrio.b)
+        const exemploLines = doc.splitTextToSize(`Exemplo: ${pergunta.exemplo}`, pageWidth - 2 * margin - 6)
+        doc.text(exemploLines, margin, yPos)
+        doc.setTextColor(cinzaEscuro.r, cinzaEscuro.g, cinzaEscuro.b)
+        doc.setFontSize(8.5)
+        yPos += exemploLines.length * 3.5 + 2
+      }
+
+      // Resposta
       doc.setFont('helvetica', 'bold')
+      doc.setFontSize(8.5)
       doc.text('Resposta: ', margin, yPos)
       doc.setFont('helvetica', 'normal')
       let respostaFormatada = 'Não respondida'
@@ -630,7 +650,7 @@ const baixarPDF = async () => {
       }
       doc.text(respostaFormatada, margin + 18, yPos)
 
-      yPos += 7
+      yPos += 8
     })
 
     yPos += 5

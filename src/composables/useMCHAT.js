@@ -3,26 +3,26 @@ export function useMCHAT() {
   
   // Lista de perguntas do M-CHAT-R
   const perguntasMCHAT = [
-    { id: 1, texto: 'Se você apontar para algum objeto no quarto, o seu filho olha para este objeto?' },
-    { id: 2, texto: 'Alguma vez você se perguntou se o seu filho pode ser surdo?' },
-    { id: 3, texto: 'O seu filho brinca de faz de contas?' },
-    { id: 4, texto: 'O seu filho gosta de subir nas coisas?' },
-    { id: 5, texto: 'O seu filho faz movimentos estranhos com os dedos perto dos olhos?' },
-    { id: 6, texto: 'O seu filho aponta com o dedo para pedir algo ou para conseguir ajuda?' },
-    { id: 7, texto: 'O seu filho aponta com o dedo para mostrar algo interessante para você?' },
-    { id: 8, texto: 'O seu filho se interessa por outras crianças?' },
-    { id: 9, texto: 'O seu filho traz coisas para mostrar para você?' },
-    { id: 10, texto: 'O seu filho responde quando você o chama pelo nome?' },
-    { id: 11, texto: 'Quando você sorri para o seu filho, ele sorri de volta para você?' },
-    { id: 12, texto: 'O seu filho fica muito incomodado com barulhos do dia a dia?' },
-    { id: 13, texto: 'O seu filho anda?' },
-    { id: 14, texto: 'O seu filho olha nos seus olhos quando você está falando ou brincando com ele?' },
-    { id: 15, texto: 'O seu filho tenta imitar o que você faz?' },
-    { id: 16, texto: 'Quando você vira a cabeça para olhar para alguma coisa, o seu filho olha também?' },
-    { id: 17, texto: 'O seu filho tenta fazer você olhar para ele?' },
-    { id: 18, texto: 'O seu filho compreende quando você pede para ele fazer alguma coisa?' },
-    { id: 19, texto: 'Quando acontece algo novo, o seu filho olha para o seu rosto para ver como você se sente?' },
-    { id: 20, texto: 'O seu filho gosta de atividades de movimento?' }
+    { id: 1, texto: 'Se você apontar para algum objeto no quarto, o seu filho olha para este objeto?', exemplo: 'Se você apontar para um brinquedo, animal ou avião, seu filho olha para o objeto apontado?' },
+    { id: 2, texto: 'Alguma vez você se perguntou se o seu filho pode ser surdo?', exemplo: 'Seu filho parece não ouvir quando é chamado, ou não reage a sons que outras crianças costumam perceber?' },
+    { id: 3, texto: 'O seu filho brinca de faz de contas?', exemplo: 'Faz de conta que bebe em um copo vazio, fala ao telefone, dá comida para bonecas ou bichinhos?' },
+    { id: 4, texto: 'O seu filho gosta de subir nas coisas?', exemplo: 'Subir em móveis, sofá, brinquedos do parquinho ou escadas?' },
+    { id: 5, texto: 'O seu filho faz movimentos estranhos com os dedos perto dos olhos?', exemplo: 'Mexe os dedos em frente aos olhos, olha fixamente para as mãos ou para movimentos repetitivos?' },
+    { id: 6, texto: 'O seu filho aponta com o dedo para pedir algo ou conseguir ajuda?', exemplo: 'Aponta para um brinquedo, água ou comida fora do alcance?' },
+    { id: 7, texto: 'O seu filho aponta com o dedo para mostrar algo interessante para você?', exemplo: 'Aponta para um avião, cachorro, caminhão ou algo que chamou sua atenção?' },
+    { id: 8, texto: 'O seu filho se interessa por outras crianças?', exemplo: 'Olha para outras crianças, sorri, tenta brincar ou se aproxima delas?' },
+    { id: 9, texto: 'O seu filho traz coisas para mostrar para você ou segura objetos para que você veja, apenas para compartilhar?', exemplo: 'Mostrar uma flor, brinquedo, desenho ou bichinho de pelúcia?' },
+    { id: 10, texto: 'O seu filho responde quando você o chama pelo nome?', exemplo: 'Olha para você, responde com sons, fala ou interrompe o que está fazendo?' },
+    { id: 11, texto: 'Quando você sorri para o seu filho, ele sorri de volta?', exemplo: 'Responde ao sorriso com outro sorriso ou demonstra alegria ao interagir?' },
+    { id: 12, texto: 'O seu filho fica muito incomodado com barulhos do dia a dia?', exemplo: 'Chora, tapa os ouvidos ou se irrita com liquidificador, secador, música alta ou aspirador?' },
+    { id: 13, texto: 'O seu filho anda?', exemplo: 'Anda sozinho pela casa, mesmo que ainda apresente certa instabilidade?' },
+    { id: 14, texto: 'O seu filho olha nos seus olhos quando você fala, brinca ou veste a roupa dele?', exemplo: 'Faz contato visual durante brincadeiras, conversa ou cuidados diários?' },
+    { id: 15, texto: 'O seu filho tenta imitar o que você faz?', exemplo: 'Bater palmas, dar tchau, mandar beijo ou copiar gestos simples?' },
+    { id: 16, texto: 'Quando você vira a cabeça para olhar para alguma coisa, o seu filho olha ao redor para ver o que você está olhando?', exemplo: 'Acompanha seu olhar para um objeto, pessoa ou barulho?' },
+    { id: 17, texto: 'O seu filho tenta fazer você olhar para ele?', exemplo: 'Chama "olha!", mostra algo que fez ou procura aprovação/elogio?' },
+    { id: 18, texto: 'A sua filha compreende quando você pede para ela fazer alguma coisa?', exemplo: '"Pegue o brinquedo", "coloque o copo na mesa" ou "feche a porta", mesmo sem apontar?' },
+    { id: 19, texto: 'Quando acontece algo novo, a sua filha olha para o seu rosto para ver como você reage?', exemplo: 'Diante de um barulho estranho, brinquedo novo ou situação inesperada, ela observa sua expressão?' },
+    { id: 20, texto: 'A sua filha gosta de atividades de movimento?', exemplo: 'Brincar de balançar, girar, pular no colo ou brincar em parquinho?' }
   ]
   
   // Perguntas que têm pontuação INVERTIDA (SIM = risco)
