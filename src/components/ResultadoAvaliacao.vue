@@ -369,10 +369,12 @@ const recomendacoes = computed(() => {
   switch (riscoFinal.value) {
     case 'BAIXO':
       return [
-        'Continuar o monitoramento do desenvolvimento infantil nas consultas de rotina.',
-        'Reaplicar o M-CHAT-R em consultas futuras conforme protocolo pediátrico.',
-        'Estimular o desenvolvimento social, comunicativo e cognitivo através de brincadeiras.',
-        'Manter atenção a marcos do desenvolvimento e procurar orientação se surgirem novas preocupações.'
+        'Encaminhar IMEDIATAMENTE para avaliação diagnóstica e terapêutica multidisciplinar.',
+        'Não aguardar para "ver se melhora", pois a intervenção precoce é crucial no TEA. Iniciar intervenção precoce o mais rápido possível.',
+        'É importante manter acompanhamento longitudinal e atenção aos marcos do desenvolvimento, que devem ser registrados na caderneta da criança. Procurar orientação especializada se surgirem novas preocupações.',
+        'Sugere-se a consulta do Guia de Vigilância dos Domínios do Neurodesenvolvimento e Sinais de Risco para o Transtorno do Espectro Autista (TEA) (Anexo I).',
+        'Sugere-se a utilização do modelo de Projeto Terapêutico Singular (PTS) – para Criança com Alto Risco para TEA (Anexo II).',
+        'Documentar todos os comportamentos observados para auxiliar na avaliação diagnóstica.'
       ]
     case 'MEDIO':
       return [
