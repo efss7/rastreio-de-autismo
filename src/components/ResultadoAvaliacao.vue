@@ -234,6 +234,22 @@
             </div>
           </div>
 
+          <!-- Materiais de apoio (alto risco) -->
+          <div v-if="riscoFinal === 'ALTO'" class="mb-8 p-6 bg-gray-50 rounded-xl">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Materiais de Apoio</h3>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <a
+                v-for="m in materiaisApoio"
+                :key="m.arquivo"
+                :href="m.arquivo"
+                download
+                class="btn btn-outline flex-1 text-center"
+              >
+                {{ m.titulo }} (PDF)
+              </a>
+            </div>
+          </div>
+
           <!-- Ações -->
           <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
             <button
@@ -291,6 +307,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useMCHAT } from '../composables/useMCHAT'
 import jsPDF from 'jspdf'
+import QRCode from 'qrcode'
 
 const router = useRouter()
 const { perguntasMCHAT } = useMCHAT()
@@ -304,6 +321,14 @@ const itensFalhados = ref([])
 const riscoFinal = ref('BAIXO')
 const fezFollowUp = ref(false)
 const gerandoPDF = ref(false)
+
+// URL fixa: o QR impresso no PDF precisa funcionar mesmo se o relatório for gerado em localhost/preview
+const URL_PUBLICA = 'https://rastreio-de-autismo.vercel.app'
+
+const materiaisApoio = [
+  { titulo: 'Material de apoio 1', arquivo: '/materiais/material-1.pdf' },
+  { titulo: 'Material de apoio 2', arquivo: '/materiais/material-2.pdf' }
+]
 
 // Computed
 const idadeCrianca = computed(() => {
@@ -653,6 +678,32 @@ const baixarPDF = async () => {
     })
 
     yPos += 5
+
+    // Materiais de apoio (alto risco): link clicável + QR code para impressão
+    if (riscoFinal.value === 'ALTO') {
+      const qrSize = 32
+      if (yPos > pageHeight - qrSize - 40) {
+        doc.addPage()
+        yPos = margin
+      }
+      doc.setFontSize(11)
+      doc.setFont('helvetica', 'bold')
+      doc.setTextColor(azulSobrio.r, azulSobrio.g, azulSobrio.b)
+      doc.text('Materiais de Apoio', margin, yPos)
+      yPos += 6
+
+      const colWidth = (pageWidth - 2 * margin) / materiaisApoio.length
+      for (const [i, m] of materiaisApoio.entries()) {
+        const url = URL_PUBLICA + m.arquivo
+        const x = margin + i * colWidth
+        doc.addImage(await QRCode.toDataURL(url, { margin: 1 }), 'PNG', x, yPos, qrSize, qrSize)
+        doc.setFontSize(8.5)
+        doc.setFont('helvetica', 'normal')
+        doc.setTextColor(azulSobrio.r, azulSobrio.g, azulSobrio.b)
+        doc.textWithLink(m.titulo, x, yPos + qrSize + 5, { url })
+      }
+      yPos += qrSize + 14
+    }
 
     // Nota final
     if (yPos > pageHeight - 30) {
