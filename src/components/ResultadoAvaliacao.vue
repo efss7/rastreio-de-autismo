@@ -242,8 +242,6 @@
                 v-for="m in materiaisApoio"
                 :key="m.arquivo"
                 :href="m.arquivo"
-                target="_blank"
-                rel="noopener"
                 download
                 class="btn btn-outline flex-1 text-center"
               >
@@ -323,6 +321,9 @@ const itensFalhados = ref([])
 const riscoFinal = ref('BAIXO')
 const fezFollowUp = ref(false)
 const gerandoPDF = ref(false)
+
+// URL fixa: o QR impresso no PDF precisa funcionar mesmo se o relatório for gerado em localhost/preview
+const URL_PUBLICA = 'https://rastreio-de-autismo.vercel.app'
 
 const materiaisApoio = [
   { titulo: 'Material de apoio 1', arquivo: '/materiais/material-1.pdf' },
@@ -693,7 +694,7 @@ const baixarPDF = async () => {
 
       const colWidth = (pageWidth - 2 * margin) / materiaisApoio.length
       for (const [i, m] of materiaisApoio.entries()) {
-        const url = window.location.origin + m.arquivo
+        const url = URL_PUBLICA + m.arquivo
         const x = margin + i * colWidth
         doc.addImage(await QRCode.toDataURL(url, { margin: 1 }), 'PNG', x, yPos, qrSize, qrSize)
         doc.setFontSize(8.5)
